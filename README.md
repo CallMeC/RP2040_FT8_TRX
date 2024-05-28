@@ -3,7 +3,7 @@ Yet another RP2040 project, but this time radio ham
 
 # Features :
 - USB Serial communication
-- Class-E Amplifier (5W target)
+- Class-E Amplifier (2W target)
 - Accurate clock generator (Si5351 ?)
 - Polarisation Network
 - TR Switch + SDR Dongle for RX | OR | Autonomous RX
