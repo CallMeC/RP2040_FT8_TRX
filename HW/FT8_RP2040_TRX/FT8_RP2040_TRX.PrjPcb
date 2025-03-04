@@ -101,7 +101,7 @@ GenerateClassCluster=0
 DocumentUniqueId=AAEJMGFT
 
 [Document4]
-DocumentPath=03-Transceiver.SchDoc
+DocumentPath=03-Transmitter.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -150,6 +150,98 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EBVGJTYH
+
+[Parameter1]
+Name=SCH_REV
+Value=A
+
+[Parameter2]
+Name=REVISION_VALUE
+Value=001_A
+
+[Parameter3]
+Name=PROJECT_NAME
+Value=FT8_RP2040_TRX
+
+[Parameter4]
+Name=PCB_REV
+Value=A
+
+[Parameter5]
+Name=PCB_PART_NUMBER
+Value=<PCB PN>
+
+[Parameter6]
+Name=PCB_ENGINEER_APP_DATE
+Value=--/--/----
+
+[Parameter7]
+Name=PCB_ENGINEER
+Value=- -----
+
+[Parameter8]
+Name=PCB_DWG_NO
+Value=<PCB DWG NO>
+
+[Parameter9]
+Name=PCB_DESIGNER_APP_DATE
+Value=--/--/----
+
+[Parameter10]
+Name=PCB_DESIGNER
+Value=- -----
+
+[Parameter11]
+Name=PCB_CHECKER_APP_DATE
+Value=--/--/----
+
+[Parameter12]
+Name=PCB_CHECKER
+Value=- -----
+
+[Parameter13]
+Name=PCB_ASSEMBLY_NO
+Value=<PCB ASSY NO>
+
+[Parameter14]
+Name=PCB_ANG_TOL
+Value=+/-1/2
+
+[Parameter15]
+Name=PCB_3_DEC_TOL
+Value=+/-.010
+
+[Parameter16]
+Name=PCB_2_DEC_TOL
+Value=+/-.01
+
+[Parameter17]
+Name=DOC_NO_SCH_DWG
+Value=<SCH DWG NO>
+
+[Parameter18]
+Name=DOC_NO_FAB_DWG
+Value=<FAB DWG NO>
+
+[Parameter19]
+Name=DOC_NO_BOM
+Value=<BOM DOC NO>
+
+[Parameter20]
+Name=DOC_NO_ASSY_DWG
+Value=<ASSY DWG NO>
+
+[Parameter21]
+Name=CONTRACT_NUMBER
+Value=<CONTRACT NO>
+
+[Parameter22]
+Name=CAGE_CODE
+Value=?????
+
+[Parameter23]
+Name=AUTHOR_NAME
+Value=C.VERDA
 
 [Configuration1]
 Name=Sources
