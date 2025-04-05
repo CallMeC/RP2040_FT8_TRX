@@ -1,0 +1,569 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD23\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">05/04/2025</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">21:22:17</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc" class="file"><acronym title="C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc">C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">63</td></tr>
+</table>
+</td>
+</table><a name="IDT0S3ITZRAIJSC33YUU0RWIJUHGVTJZYT1V52RTE4KS1ZMF1L3FPP"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCVLCYNZIBGSNFIL13KLUCKNCXO2T0BSLMNBKPQNKF4OKQJJNSWVB">Clearance Constraint (Gap=0.2mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDELOGNAHZNWNCGWD0VIU3OLAVVLRNOIJ2OHW30EVN5VT5WRXCFWK">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5TBS12DGOQ0UNFLNGTWC5V2LWBSWW3NAN25MFJKOSJMIZI2IJUUD">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKIXAYIJWAVLILERLHGZSPZ4V0MRLBGTRMYU2MRBO4X1MJGMZOBOG">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDOL3M12T5KGFHK0JCVAPKC1I5EGXIHXPDMGW2NQCDBRKB4OMOLZSG">Width Constraint (Min=0.2mm) (Max=5mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDC3G0HGBJBNDBOVVFKPFQTHVAMESQHAG44IRZJ3C3XQXYN4QYF1V">Routing Layers(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZXPTM2RF1NWJDNQ2MMX1NSMX4JHEFGX5KMOAKTH2HBMOBL2PSVBM">Routing Via (MinHoleWidth=0.3mm) (MaxHoleWidth=0.5mm) (PreferredHoleWidth=0.3mm) (MinWidth=0.5mm) (MaxWidth=1mm) (PreferedWidth=0.6mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID52SS3IX3N2PSGL0EO4NAS3B0XT5LKSNJQFETWKS0OPZB4GLDVZ">Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.2mm) (Max=1mm) (Prefered=0.254mm)  and Width Constraints (Min=0.2mm) (Max=1mm) (Prefered=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5HXMXLEDHMN2JGHDP3LUMQJQ4MZPOUSUFSPTDOG3A1KSS5VB2NDG">SMD Neck-Down Constraint (Percent=130%) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDACQQA01QCOXWMPG5GCIT5MZLBN55DPI4LZNVGCCI5THIZJT22QTC">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSRZ1FCB0VJTZK2AEM1CXZCH3BMHUU5X0PB1QPRPVIIL1FXXQSJGK">Power Plane Connect Rule(Direct Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (IsNamedPolygon('E_AMP_DC'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQDPFXQEU3QRPNZ2OJWFKIPQMLDTQRJVYRH1TBQIGFFKELYEZXYP">Minimum Annular Ring (Minimum=0.15mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDTOB52TJFOLAMDZ5TQVFC2WL42L4W3ZD0Z35EEDWE5GY550W3WTP">Hole Size Constraint (Min=0.2mm) (Max=7.62mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0WN2P13OBR2MJAEGCT5KNBOALKDGZB43FP3QIEFDRBNJ5MVKHJAG">Pads and Vias to follow the Drill pairs settings</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDOMOZMFTCESGUKDZTVPVX1OJOEGHPSQ12S50SS1IWMPKNVHEY4WDL">Hole To Hole Clearance (Gap=0.2mm) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPXMPZQFJLDQIGJKKMD3AQLSHCB4PNCEFBHD4ILPRVQLUVBCKCFWI">Minimum Solder Mask Sliver (Gap=0.05mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQZ33AONADC30DGN4SNQ5ATAAZKM0LYMYHU1Z3REK40JX3LAQXOHP">Silk To Solder Mask (Clearance=0mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGPVVFMJDLD43DVS1RBSQ0HUR2J5OY3U5MRIWYI3XMOUXZI02K1H">Silk to Silk (Clearance=0mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFDTG40B11GCAPSAY55VVSRZYGST2IOAFCS2PYHHIVMPKNQQAOEF">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1ENJWTDJLZKOBWXAML4CNKZKPNOYLARDB22LTBLCX0ADACCQFTCG">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">42</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID23HBLSDQTRBWIRJLT1BTCP5R3L4G0KQO1TU2DVE012PQW4NEZFKD">Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock'))</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMTNDPFCVTYSWEMXTCD5XQ5Z1MCWFFFINE4DASALM2B023AWGADNF">Component Clearance Constraint ( Horizontal Gap = 0.2mm, Vertical Gap = 0.2mm ) (All),(All) </a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDTGA4M0MJ5YIMNWPL40LFDYQOUCIJ5SFZSGA1D5NVPVUG4RADC0MI">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">63</td>
+</tr>
+</table><br><a name="IDOMOZMFTCESGUKDZTVPVX1OJOEGHPSQ12S50SS1IWMPKNVHEY4WDL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole To Hole Clearance (Gap=0.2mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8237.648mil|Location2.X=8243.897mil|Location1.Y=4669.939mil|Location2.Y=4676.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8237.648mil|Location2.X=8243.897mil|Location1.Y=4669.939mil|Location2.Y=4676.188mil|Absolute=True">Hole To Hole Clearance Constraint: (Collision &lt; 0.2mm) Between Pad CN1-1(19.68mm,6.9mm) on Multi-Layer And Pad CN1-1(19.98mm,6.25mm) on Multi-Layer Pad/Via Touching Holes</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8575.836mil|Location2.X=8582.086mil|Location1.Y=4669.939mil|Location2.Y=4676.188mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8575.836mil|Location2.X=8582.086mil|Location1.Y=4669.939mil|Location2.Y=4676.188mil|Absolute=True">Hole To Hole Clearance Constraint: (Collision &lt; 0.2mm) Between Pad CN1-2(28.02mm,6.25mm) on Multi-Layer And Pad CN1-2(28.32mm,6.9mm) on Multi-Layer Pad/Via Touching Holes</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID1ENJWTDJLZKOBWXAML4CNKZKPNOYLARDB22LTBLCX0ADACCQFTCG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.971mil|Location2.X=9437.221mil|Location1.Y=6209.958mil|Location2.Y=6221.208mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.971mil|Location2.X=9437.221mil|Location1.Y=6209.958mil|Location2.Y=6221.208mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.046mm &lt; 0.254mm) Between Arc (39.69mm,45.43mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9341.343mil|Location2.X=9349.01mil|Location1.Y=5781.435mil|Location2.Y=5789.101mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9341.343mil|Location2.X=9349.01mil|Location1.Y=5781.435mil|Location2.Y=5789.101mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Arc (48mm,34.5mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.194mil|Location2.X=7483.129mil|Location1.Y=7619.961mil|Location2.Y=7652.313mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.194mil|Location2.X=7483.129mil|Location1.Y=7619.961mil|Location2.Y=7652.313mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.44mm &lt; 0.5mm) Between Board Edge And Pad C41-1(0.94mm,81.982mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.194mil|Location2.X=7483.129mil|Location1.Y=7677.049mil|Location2.Y=7709.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.194mil|Location2.X=7483.129mil|Location1.Y=7677.049mil|Location2.Y=7709.401mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.44mm &lt; 0.5mm) Between Board Edge And Pad C41-2(0.94mm,83.432mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.686mil|Location2.X=7483.621mil|Location1.Y=7816.533mil|Location2.Y=7848.885mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.686mil|Location2.X=7483.621mil|Location1.Y=7816.533mil|Location2.Y=7848.885mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.465mm &lt; 0.5mm) Between Board Edge And Pad C42-1(0.94mm,86.175mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.686mil|Location2.X=7483.621mil|Location1.Y=7767.32mil|Location2.Y=7799.673mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7462.686mil|Location2.X=7483.621mil|Location1.Y=7767.32mil|Location2.Y=7799.673mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.465mm &lt; 0.5mm) Between Board Edge And Pad C42-2(0.94mm,84.925mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8467.312mil|Location2.X=8499.665mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8467.312mil|Location2.X=8499.665mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J4-1(25mm,97.2mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8301.565mil|Location2.X=8333.917mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8301.565mil|Location2.X=8333.917mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J4-G(20.74mm,97.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8301.565mil|Location2.X=8333.917mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8301.565mil|Location2.X=8333.917mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J4-G(20.74mm,97.55mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8636.997mil|Location2.X=8669.35mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8636.997mil|Location2.X=8669.35mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J4-G(29.26mm,97.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8636.997mil|Location2.X=8669.35mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8636.997mil|Location2.X=8669.35mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J4-G(29.26mm,97.55mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8988.966mil|Location2.X=9021.319mil|Location1.Y=4424.407mil|Location2.Y=4445.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8988.966mil|Location2.X=9021.319mil|Location1.Y=4424.407mil|Location2.Y=4445.342mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.4mm &lt; 0.5mm) Between Board Edge And Pad J5-(39mm,1mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9414.163mil|Location2.X=9435.098mil|Location1.Y=4444.486mil|Location2.Y=4476.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9414.163mil|Location2.X=9435.098mil|Location1.Y=4444.486mil|Location2.Y=4476.838mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.4mm &lt; 0.5mm) Between Board Edge And Pad J5-(49mm,1mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9414.163mil|Location2.X=9435.098mil|Location1.Y=4542.911mil|Location2.Y=4575.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9414.163mil|Location2.X=9435.098mil|Location1.Y=4542.911mil|Location2.Y=4575.263mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.4mm &lt; 0.5mm) Between Board Edge And Pad J5-(49mm,3.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9415.226mil|Location2.X=9436.161mil|Location1.Y=4765.509mil|Location2.Y=4797.862mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9415.226mil|Location2.X=9436.161mil|Location1.Y=4765.509mil|Location2.Y=4797.862mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.346mm &lt; 0.5mm) Between Board Edge And Pad J5-2(49mm,8.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7687.785mil|Location2.X=7720.137mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7687.785mil|Location2.X=7720.137mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J6-1(5.2mm,97.2mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7522.037mil|Location2.X=7554.389mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7522.037mil|Location2.X=7554.389mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J6-G(0.94mm,97.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7522.037mil|Location2.X=7554.389mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7522.037mil|Location2.X=7554.389mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J6-G(0.94mm,97.55mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7857.47mil|Location2.X=7889.822mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7857.47mil|Location2.X=7889.822mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J6-G(9.46mm,97.55mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7857.47mil|Location2.X=7889.822mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7857.47mil|Location2.X=7889.822mil|Location1.Y=8353.541mil|Location2.Y=8374.476mil|Absolute=True">Board Outline Clearance(Outline Edge): (0mm &lt; 0.5mm) Between Board Edge And Pad J6-G(9.46mm,97.55mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7461.96mil|Location2.X=7473.21mil|Location1.Y=7505.403mil|Location2.Y=7516.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7461.96mil|Location2.X=7473.21mil|Location1.Y=7505.403mil|Location2.Y=7516.653mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.182mm &lt; 0.254mm) Between Board Edge And Text "C41" (1.071mm,78.461mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8615.237mil|Location2.X=8626.487mil|Location1.Y=4425.157mil|Location2.Y=4436.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8615.237mil|Location2.X=8626.487mil|Location1.Y=4425.157mil|Location2.Y=4436.407mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.192mm &lt; 0.254mm) Between Board Edge And Text "CN1" (29.511mm,0.319mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8051.359mil|Location2.X=8062.609mil|Location1.Y=4425.157mil|Location2.Y=4436.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8051.359mil|Location2.X=8062.609mil|Location1.Y=4425.157mil|Location2.Y=4436.407mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.192mm &lt; 0.254mm) Between Board Edge And Text "J3" (13.665mm,0.319mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8174.447mil|Location2.X=8185.697mil|Location1.Y=8356.57mil|Location2.Y=8367.82mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8174.447mil|Location2.X=8185.697mil|Location1.Y=8356.57mil|Location2.Y=8367.82mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.092mm &lt; 0.254mm) Between Board Edge And Text "J4" (18.315mm,99.019mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8877.202mil|Location2.X=8888.452mil|Location1.Y=4425.157mil|Location2.Y=4436.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8877.202mil|Location2.X=8888.452mil|Location1.Y=4425.157mil|Location2.Y=4436.407mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.192mm &lt; 0.254mm) Between Board Edge And Text "J5" (36.165mm,0.319mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7876.431mil|Location2.X=7887.681mil|Location1.Y=8356.57mil|Location2.Y=8367.82mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7876.431mil|Location2.X=7887.681mil|Location1.Y=8356.57mil|Location2.Y=8367.82mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.092mm &lt; 0.254mm) Between Board Edge And Text "J6" (10.746mm,99.019mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7463.179mil|Location2.X=7484.114mil|Location1.Y=7070.687mil|Location2.Y=7103.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7463.179mil|Location2.X=7484.114mil|Location1.Y=7070.687mil|Location2.Y=7103.039mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.49mm &lt; 0.5mm) Between Board Edge And Track (0.59mm,67.706mm)(0.59mm,68.106mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7456.938mil|Location2.X=7504.891mil|Location1.Y=6388.443mil|Location2.Y=6402.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7456.938mil|Location2.X=7504.891mil|Location1.Y=6388.443mil|Location2.Y=6402.566mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (0mm,0mm)(0mm,100mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8441.191mil|Location2.X=8489.144mil|Location1.Y=4419.939mil|Location2.Y=4434.062mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8441.191mil|Location2.X=8489.144mil|Location1.Y=4419.939mil|Location2.Y=4434.062mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (0mm,0mm)(50mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8441.191mil|Location2.X=8489.144mil|Location1.Y=8356.947mil|Location2.Y=8371.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8441.191mil|Location2.X=8489.144mil|Location1.Y=8356.947mil|Location2.Y=8371.071mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (0mm,100mm)(50mm,100mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8813.179mil|Location2.X=8845.531mil|Location1.Y=4424.121mil|Location2.Y=4445.056mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8813.179mil|Location2.X=8845.531mil|Location1.Y=4424.121mil|Location2.Y=4445.056mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.386mm &lt; 0.5mm) Between Board Edge And Track (33.265mm,0.449mm)(34.535mm,0.449mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8953.002mil|Location2.X=9000.955mil|Location1.Y=4418.586mil|Location2.Y=4432.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8953.002mil|Location2.X=9000.955mil|Location1.Y=4418.586mil|Location2.Y=4432.709mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (38mm,0mm)(38mm,11mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9189.222mil|Location2.X=9237.176mil|Location1.Y=4419.939mil|Location2.Y=4434.062mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9189.222mil|Location2.X=9237.176mil|Location1.Y=4419.939mil|Location2.Y=4434.062mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (38mm,0mm)(50mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9426.796mil|Location2.X=9474.749mil|Location1.Y=4853.01mil|Location2.Y=4867.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9426.796mil|Location2.X=9474.749mil|Location1.Y=4853.01mil|Location2.Y=4867.133mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (38mm,11mm)(50mm,11mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9418.517mil|Location2.X=9439.452mil|Location1.Y=5310.175mil|Location2.Y=5342.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9418.517mil|Location2.X=9439.452mil|Location1.Y=5310.175mil|Location2.Y=5342.527mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.179mm &lt; 0.5mm) Between Board Edge And Track (47.179mm,22.989mm)(49.721mm,22.989mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9418.517mil|Location2.X=9439.452mil|Location1.Y=5699.269mil|Location2.Y=5731.622mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9418.517mil|Location2.X=9439.452mil|Location1.Y=5699.269mil|Location2.Y=5731.622mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.179mm &lt; 0.5mm) Between Board Edge And Track (47.179mm,32.871mm)(49.721mm,32.871mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9386.114mil|Location2.X=9434.068mil|Location1.Y=5758.522mil|Location2.Y=5772.645mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9386.114mil|Location2.X=9434.068mil|Location1.Y=5758.522mil|Location2.Y=5772.645mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (48mm,34mm)(50mm,34mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9386.115mil|Location2.X=9434.068mil|Location1.Y=5797.891mil|Location2.Y=5812.015mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9386.115mil|Location2.X=9434.068mil|Location1.Y=5797.891mil|Location2.Y=5812.015mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (48mm,35mm)(50mm,35mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9418.517mil|Location2.X=9439.452mil|Location1.Y=5699.722mil|Location2.Y=5732.074mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9418.517mil|Location2.X=9439.452mil|Location1.Y=5699.722mil|Location2.Y=5732.074mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.179mm &lt; 0.5mm) Between Board Edge And Track (49.721mm,22.989mm)(49.721mm,32.883mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.443mil|Location2.X=9473.396mil|Location1.Y=4636.474mil|Location2.Y=4650.597mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.443mil|Location2.X=9473.396mil|Location1.Y=4636.474mil|Location2.Y=4650.597mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (50mm,0mm)(50mm,11mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.443mil|Location2.X=9473.396mil|Location1.Y=5089.23mil|Location2.Y=5103.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.443mil|Location2.X=9473.396mil|Location1.Y=5089.23mil|Location2.Y=5103.354mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (50mm,34mm)(50mm,0mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.443mil|Location2.X=9473.396mil|Location1.Y=7077.419mil|Location2.Y=7091.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9425.443mil|Location2.X=9473.396mil|Location1.Y=7077.419mil|Location2.Y=7091.543mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.5mm) Between Board Edge And Track (50mm,35mm)(50mm,100mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID23HBLSDQTRBWIRJLT1BTCP5R3L4G0KQO1TU2DVE012PQW4NEZFKD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8845.934mil|Location1.Y=0mil|Location2.Y=6499.835mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8845.934mil|Location1.Y=0mil|Location2.Y=6499.835mil|Absolute=True">Room Definition: Between Component U1-AP2127K-3.3TRG1 (32.897mm,50.8mm) on Top Layer And Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9430.687mil|Location1.Y=0mil|Location2.Y=6723.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9430.687mil|Location1.Y=0mil|Location2.Y=6723.457mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component BT1-BAT-HLD-001 (39.5mm,45.43mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8607.723mil|Location1.Y=0mil|Location2.Y=6442.749mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8607.723mil|Location1.Y=0mil|Location2.Y=6442.749mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C1-10u X5R 35V 10% 0603 (28.351mm,49.95mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8542.853mil|Location1.Y=0mil|Location2.Y=6447.67mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8542.853mil|Location1.Y=0mil|Location2.Y=6447.67mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C2-100 nF 10% 50 V 0603 (26.628mm,49.95mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8967.936mil|Location1.Y=0mil|Location2.Y=6485.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8967.936mil|Location1.Y=0mil|Location2.Y=6485.071mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C3-10u X5R 35V 10% 0603 (37.5mm,51.025mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8909.129mil|Location1.Y=0mil|Location2.Y=6498.851mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8909.129mil|Location1.Y=0mil|Location2.Y=6498.851mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C4-100 nF 10% 50 V 0603 (35.931mm,51.25mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8466.087mil|Location1.Y=0mil|Location2.Y=6710.805mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8466.087mil|Location1.Y=0mil|Location2.Y=6710.805mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C5-100 nF 10% 50 V 0603 (24.678mm,56.634mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9210.431mil|Location1.Y=0mil|Location2.Y=6861.396mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9210.431mil|Location1.Y=0mil|Location2.Y=6861.396mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C6-100 nF 10% 50 V 0603 (42.984mm,61.059mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9144.506mil|Location1.Y=0mil|Location2.Y=6583.083mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9144.506mil|Location1.Y=0mil|Location2.Y=6583.083mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component D1-KT-0603G (41.859mm,53.05mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9076.205mil|Location1.Y=0mil|Location2.Y=6448.654mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9076.205mil|Location1.Y=0mil|Location2.Y=6448.654mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component R1-1K 1% 0.1W (39.7mm,50.65mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9063.882mil|Location1.Y=0mil|Location2.Y=6548.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9063.882mil|Location1.Y=0mil|Location2.Y=6548.876mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component TP1-Touchpoint (39.675mm,52.934mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9029.45mil|Location1.Y=0mil|Location2.Y=6913.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9029.45mil|Location1.Y=0mil|Location2.Y=6913.994mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component TP2-Touchpoint (38.8mm,62.208mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8931.042mil|Location1.Y=0mil|Location2.Y=6913.994mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8931.042mil|Location1.Y=0mil|Location2.Y=6913.994mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component TP3-Touchpoint (36.301mm,62.208mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8982.701mil|Location1.Y=0mil|Location2.Y=6804.309mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8982.701mil|Location1.Y=0mil|Location2.Y=6804.309mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component Y1-XG1EL89CKI-111YLC-25M (35.925mm,56.634mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9081.127mil|Location1.Y=0mil|Location2.Y=6766.907mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9081.127mil|Location1.Y=0mil|Location2.Y=6766.907mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component Y2-Q13FC13500049 (39.675mm,57.484mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8740.69mil|Location1.Y=0mil|Location2.Y=6734.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=8740.69mil|Location1.Y=0mil|Location2.Y=6734.427mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SOIC Component U2-SI5351A-B-GTR (28.75mm,56.759mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9377.725mil|Location1.Y=0mil|Location2.Y=6794.467mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=9377.725mil|Location1.Y=0mil|Location2.Y=6794.467mil|Absolute=True">Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SOIC Component U3-DS1302Z (44.909mm,57.534mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDMTNDPFCVTYSWEMXTCD5XQ5Z1MCWFFFINE4DASALM2B023AWGADNF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Component Clearance Constraint ( Horizontal Gap = 0.2mm, Vertical Gap = 0.2mm ) (All),(All) </th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7744.399mil|Location2.X=7753.523mil|Location1.Y=5902.007mil|Location2.Y=5911.131mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7744.399mil|Location2.X=7753.523mil|Location1.Y=5902.007mil|Location2.Y=5911.131mil|Absolute=True">Component Clearance Constraint: (Collision &lt; 0.2mm) Between SMT Small Component L1-SMDRI127-680MT (7.1mm,43.6mm) on Top Layer And SMT Small Component TP4-Touchpoint (8.2mm,36.6mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9004.278mil|Location2.X=9013.402mil|Location1.Y=5134.053mil|Location2.Y=5143.177mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9004.278mil|Location2.X=9013.402mil|Location1.Y=5134.053mil|Location2.Y=5143.177mil|Absolute=True">Component Clearance Constraint: (Collision &lt; 0.2mm) Between SMT Small Component TP10-Touchpoint (38.277mm,17.025mm) on Top Layer And SMT Small Component TP11-Touchpoint (38.277mm,19.125mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

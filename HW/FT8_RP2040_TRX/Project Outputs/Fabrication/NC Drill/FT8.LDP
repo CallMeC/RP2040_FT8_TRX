@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc
+LayersSetName=Top_Bot_Thru_Holes|DrillFile=ft8-roundholes.txt|DrillLayers=gtl,g1,g2,gbl
+LayersSetName=Top_Bot_Slot_Holes|DrillFile=ft8-slotholes.txt|DrillLayers=gtl,g1,g2,gbl
