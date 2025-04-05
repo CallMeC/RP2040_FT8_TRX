@@ -1,0 +1,141 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\FT8.PcbDoc
+Date     : 05/04/2025
+Time     : 21:22:17
+
+Processing Rule : Clearance Constraint (Gap=0.2mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.2mm) (Max=5mm) (Preferred=0.254mm) (All)
+Rule Violations :0
+
+Processing Rule : Routing Layers(All)
+Rule Violations :0
+
+Processing Rule : Routing Via (MinHoleWidth=0.3mm) (MaxHoleWidth=0.5mm) (PreferredHoleWidth=0.3mm) (MinWidth=0.5mm) (MaxWidth=1mm) (PreferedWidth=0.6mm) (All)
+Rule Violations :0
+
+Processing Rule : Differential Pairs Uncoupled Length using the Gap Constraints (Min=0.2mm) (Max=1mm) (Prefered=0.254mm)  and Width Constraints (Min=0.2mm) (Max=1mm) (Prefered=0.254mm) (All)
+Rule Violations :0
+
+Processing Rule : SMD Neck-Down Constraint (Percent=130%) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (IsNamedPolygon('E_AMP_DC'))
+Rule Violations :0
+
+Processing Rule : Minimum Annular Ring (Minimum=0.15mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.2mm) (Max=7.62mm) (All)
+Rule Violations :0
+
+Processing Rule : Pads and Vias to follow the Drill pairs settings
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.2mm) (All),(All)
+   Violation between Hole To Hole Clearance Constraint: (Collision < 0.2mm) Between Pad CN1-1(19.68mm,6.9mm) on Multi-Layer And Pad CN1-1(19.98mm,6.25mm) on Multi-Layer Pad/Via Touching Holes
+   Violation between Hole To Hole Clearance Constraint: (Collision < 0.2mm) Between Pad CN1-2(28.02mm,6.25mm) on Multi-Layer And Pad CN1-2(28.32mm,6.9mm) on Multi-Layer Pad/Via Touching Holes
+Rule Violations :2
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.05mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0mm) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Board Clearance Constraint (Gap=0mm) (All)
+   Violation between Board Outline Clearance(Outline Edge): (0.046mm < 0.254mm) Between Arc (39.69mm,45.43mm) on Bottom Overlay And Board Edge 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.254mm) Between Arc (48mm,34.5mm) on Top Overlay And Board Edge 
+   Violation between Board Outline Clearance(Outline Edge): (0.44mm < 0.5mm) Between Board Edge And Pad C41-1(0.94mm,81.982mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.44mm < 0.5mm) Between Board Edge And Pad C41-2(0.94mm,83.432mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.465mm < 0.5mm) Between Board Edge And Pad C42-1(0.94mm,86.175mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.465mm < 0.5mm) Between Board Edge And Pad C42-2(0.94mm,84.925mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J4-1(25mm,97.2mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J4-G(20.74mm,97.55mm) on Bottom Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J4-G(20.74mm,97.55mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J4-G(29.26mm,97.55mm) on Bottom Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J4-G(29.26mm,97.55mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.4mm < 0.5mm) Between Board Edge And Pad J5-(39mm,1mm) on Multi-Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.4mm < 0.5mm) Between Board Edge And Pad J5-(49mm,1mm) on Multi-Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.4mm < 0.5mm) Between Board Edge And Pad J5-(49mm,3.5mm) on Multi-Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.346mm < 0.5mm) Between Board Edge And Pad J5-2(49mm,8.5mm) on Multi-Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J6-1(5.2mm,97.2mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J6-G(0.94mm,97.55mm) on Bottom Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J6-G(0.94mm,97.55mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J6-G(9.46mm,97.55mm) on Bottom Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0mm < 0.5mm) Between Board Edge And Pad J6-G(9.46mm,97.55mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.182mm < 0.254mm) Between Board Edge And Text "C41" (1.071mm,78.461mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.192mm < 0.254mm) Between Board Edge And Text "CN1" (29.511mm,0.319mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.192mm < 0.254mm) Between Board Edge And Text "J3" (13.665mm,0.319mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.092mm < 0.254mm) Between Board Edge And Text "J4" (18.315mm,99.019mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.192mm < 0.254mm) Between Board Edge And Text "J5" (36.165mm,0.319mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.092mm < 0.254mm) Between Board Edge And Text "J6" (10.746mm,99.019mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.49mm < 0.5mm) Between Board Edge And Track (0.59mm,67.706mm)(0.59mm,68.106mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (0mm,0mm)(0mm,100mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (0mm,0mm)(50mm,0mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (0mm,100mm)(50mm,100mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.386mm < 0.5mm) Between Board Edge And Track (33.265mm,0.449mm)(34.535mm,0.449mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (38mm,0mm)(38mm,11mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (38mm,0mm)(50mm,0mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (38mm,11mm)(50mm,11mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.179mm < 0.5mm) Between Board Edge And Track (47.179mm,22.989mm)(49.721mm,22.989mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.179mm < 0.5mm) Between Board Edge And Track (47.179mm,32.871mm)(49.721mm,32.871mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (48mm,34mm)(50mm,34mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (48mm,35mm)(50mm,35mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.179mm < 0.5mm) Between Board Edge And Track (49.721mm,22.989mm)(49.721mm,32.883mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (50mm,0mm)(50mm,11mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (50mm,34mm)(50mm,0mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.5mm) Between Board Edge And Track (50mm,35mm)(50mm,100mm) on Top Overlay 
+Rule Violations :42
+
+Processing Rule : Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock'))
+   Violation between Room Definition: Between Component U1-AP2127K-3.3TRG1 (32.897mm,50.8mm) on Top Layer And Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component BT1-BAT-HLD-001 (39.5mm,45.43mm) on Bottom Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C1-10u X5R 35V 10% 0603 (28.351mm,49.95mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C2-100 nF 10% 50 V 0603 (26.628mm,49.95mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C3-10u X5R 35V 10% 0603 (37.5mm,51.025mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C4-100 nF 10% 50 V 0603 (35.931mm,51.25mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C5-100 nF 10% 50 V 0603 (24.678mm,56.634mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component C6-100 nF 10% 50 V 0603 (42.984mm,61.059mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component D1-KT-0603G (41.859mm,53.05mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component R1-1K 1% 0.1W (39.7mm,50.65mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component TP1-Touchpoint (39.675mm,52.934mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component TP2-Touchpoint (38.8mm,62.208mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component TP3-Touchpoint (36.301mm,62.208mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component Y1-XG1EL89CKI-111YLC-25M (35.925mm,56.634mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SMT Small Component Y2-Q13FC13500049 (39.675mm,57.484mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SOIC Component U2-SI5351A-B-GTR (28.75mm,56.759mm) on Top Layer 
+   Violation between Room Definition: Between Room U_02-Clock (Bounding Region = (0mm, 0mm, 50.8mm, 25.4mm) (InComponentClass('U_02-Clock')) And SOIC Component U3-DS1302Z (44.909mm,57.534mm) on Top Layer 
+Rule Violations :17
+
+Processing Rule : Component Clearance Constraint ( Horizontal Gap = 0.2mm, Vertical Gap = 0.2mm ) (All),(All) 
+   Violation between Component Clearance Constraint: (Collision < 0.2mm) Between SMT Small Component L1-SMDRI127-680MT (7.1mm,43.6mm) on Top Layer And SMT Small Component TP4-Touchpoint (8.2mm,36.6mm) on Top Layer 
+   Violation between Component Clearance Constraint: (Collision < 0.2mm) Between SMT Small Component TP10-Touchpoint (38.277mm,17.025mm) on Top Layer And SMT Small Component TP11-Touchpoint (38.277mm,19.125mm) on Top Layer 
+Rule Violations :2
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+
+Violations Detected : 63
+Waived Violations : 0
+Time Elapsed        : 00:00:02
