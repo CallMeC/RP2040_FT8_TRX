@@ -405,28 +405,28 @@ DocumentPath=Project Outputs\Fabrication\BOM\FT8.xlsx
 DItemRevisionGUID=
 
 [Parameter1]
-Name=REVISION_VALUE
-Value=001_A
-
-[Parameter2]
-Name=Project_Name
-Value=RP2040 FT8 TRX
-
-[Parameter3]
-Name=PCB_Revision
-Value=001_A
-
-[Parameter4]
 Name=AUTHOR_NAME
 Value=CallMeC
 
-[Parameter5]
+[Parameter2]
+Name=BOM_Revision
+Value=A
+
+[Parameter3]
 Name=IndusFiles_Revision
 Value=001_A
 
+[Parameter4]
+Name=PCB_Revision
+Value=001_A
+
+[Parameter5]
+Name=Project_Name
+Value=RP2040 FT8 TRX
+
 [Parameter6]
-Name=BOM_Revision
-Value=A
+Name=REVISION_VALUE
+Value=001_A
 
 [Configuration1]
 Name=Default Configuration
