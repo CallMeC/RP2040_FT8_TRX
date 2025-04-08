@@ -4,17 +4,29 @@ C:\Users\donke\Documents\Projets\RP2040_FT8_TRX\HW\FT8_RP2040_TRX\Project Output
 ========================================================================================================================
 File Design Information:
 
-Date:       05/04/25
-Time:       21:27
-Revision:   Not in VersionControl
-Variant:    No variations
+Date:       08/04/25
+Time:       11:32
+Revision:   8db761c0fb3d64f88f8ae958a9d0ff5f2c85e682
+Variant:    Variant of FT8
 Units used: mm
 
 "Designator","Comment","Layer","Center-X(mm)","Center-Y(mm)","Rotation"
+"R33","10K 1% 0.1W 0603","TopLayer","45,4602","30,0090","270"
+"R32","10K 1% 0.1W 0603","TopLayer","45,4602","27,2652","90"
+"TP13","Touchpoint","TopLayer","39,3335","24,7500","90"
+"TP12","Touchpoint","TopLayer","41,6843","24,7500","90"
+"SW5","SKRPASE010","TopLayer","16,0398","4,5040","90"
+"SW4","SKRPASE010","TopLayer","12,0500","27,3272","90"
+"SW3","SKRPASE010","TopLayer","16,0173","15,0133","90"
+"R31","10K 1% 0.1W 0603","TopLayer","15,2942","10,5000","90"
+"R30","10K 1% 0.1W 0603","TopLayer","13,4000","33,1467","0"
+"R29","10K 1% 0.1W 0603","TopLayer","18,6173","16,4046","270"
+"C72","10 nF 10% 50 V 0603","TopLayer","15,9192","8,3900","180"
+"C71","10 nF 10% 50 V 0603","TopLayer","12,5000","31,3255","180"
+"C70","10 nF 10% 50 V 0603","TopLayer","13,5593","17,7546","270"
+"C69","4.7uF 10% 16 V 0603","TopLayer","35,2965","29,8633","180"
 "U12","MCP6002-I/SN","TopLayer","6,2750","66,4922","0"
 "U11","SN74LV4052APWR","TopLayer","4,4291","72,2000","0"
-"R28","2K 1% 0.1W 0603","TopLayer","22,6000","91,6750","0"
-"R27","2K 1% 0.1W 0603","TopLayer","27,4500","91,6750","0"
 "R26","10K 1% 0.1W 0603","TopLayer","11,7000","66,0382","270"
 "R25","0R 1% 1206 250 mW","TopLayer","15,7924","83,5743","270"
 "R24","0R 1% 1206 250 mW","TopLayer","14,4000","88,6000","180"
@@ -42,7 +54,7 @@ Units used: mm
 "U2","SI5351A-B-GTR","TopLayer","28,7504","56,7586","180"
 "U1","AP2127K-3.3TRG1","TopLayer","32,8970","50,8000","0"
 "TP11","Touchpoint","TopLayer","38,2769","19,1250","270"
-"TP10","Touchpoint","TopLayer","38,2769","17,0250","270"
+"TP10","Touchpoint","TopLayer","38,2769","16,6046","270"
 "TP9","Touchpoint","TopLayer","45,5368","23,7500","90"
 "TP8","Touchpoint","TopLayer","24,3614","66,1882","90"
 "TP7","Touchpoint","TopLayer","33,3478","44,6500","90"
@@ -132,7 +144,6 @@ Units used: mm
 "C28","10u X5R 35V 10% 0603","TopLayer","33,3000","41,0111","90"
 "C27","100 nF 10% 50 V 0603","TopLayer","27,2504","45,4000","180"
 "C26","10u X5R 35V 10% 0603","TopLayer","27,2304","43,7889","180"
-"C25","FKP2D002201D00HA00","TopLayer","43,9250","72,6500","180"
 "C24","FKP2O111001I00HC00","TopLayer","34,3000","91,7000","90"
 "C23","FKP2D012201D00HC00","TopLayer","36,8000","97,5500","0"
 "C22","FKP2F004701D00HA00","TopLayer","46,0000","91,5000","180"
