@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 # Tell CMake where to find the executable source file
-add_executable(${PROJECT_NAME} main.cpp IO_Manager.cpp)
+add_executable(${PROJECT_NAME} main.cpp IO_Manager.cpp I2C.cpp Si5351.cpp)
 
 # Create map/bin/hex/uf2 files
 pico_add_extra_outputs(${PROJECT_NAME})
@@ -21,6 +21,7 @@ pico_add_extra_outputs(${PROJECT_NAME})
 # Link to pico_stdlib (gpio, time, etc. functions)
 target_link_libraries(${PROJECT_NAME} 
     pico_stdlib
+    hardware_i2c
 )
 
 # Enable usb output, disable uart output

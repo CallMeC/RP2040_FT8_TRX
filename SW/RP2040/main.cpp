@@ -5,6 +5,7 @@ int main()
 {
 
     c_IO_Manager IOManager;
+    
 
 
     // Initialize chosen serial port
@@ -15,7 +16,8 @@ int main()
     while (true)
     {
         printf("Helloooo!\r\n");
-        sleep_ms(300);
+        IOManager.IO_OPERATION = UPDATE_CLK;
+        sleep_ms(3000);
     }
 }
 

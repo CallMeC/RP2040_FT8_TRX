@@ -3,6 +3,7 @@
 
 #include "pico/stdlib.h"
 #include <stdio.h>
+#include "Si5351.h"
 
 #define DEFAULT_NOP     0
 #define CHECK_RTC       5
@@ -14,11 +15,12 @@ class c_IO_Manager
         void GPIO_Init();
         void GPIO_LED_TOGGLE();
         void GPIO_Callback();
+        uint8_t LED_STATE;
+        uint8_t IO_OPERATION;
+        
 
     private:
-        uint8_t IO_OPERATION;
-        uint8_t LED_MICRO_STATE;
-
+        SI5351 si5351;
         void GPIO_Mainloop();
         void GPIO_Bootfinished();
 };
