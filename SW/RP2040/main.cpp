@@ -6,6 +6,7 @@ int main()
 
     c_IO_Manager IOManager;
     c_IO_Manager::SetInstance(&IOManager);
+    USBConsole console;
 
 
     // Initialize chosen serial port
@@ -17,7 +18,9 @@ int main()
     while (true)
     {
         IOManager.IO_OPERATION = GPIO_GET;
-        sleep_ms(3000);
+        IOManager.USB_CONSOLE_TASK = console.poll();
+        IOManager.setFrequency(console.getFrequency());
+        sleep_ms(10);
     }
 }
 

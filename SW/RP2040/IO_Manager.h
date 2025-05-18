@@ -12,6 +12,14 @@
 #define UPDATE_CLK      6
 #define GPIO_GET        7
 
+#define TASK_TX_ON      1
+#define TASK_TX_OFF     2
+#define TASK_RX_ON      3
+#define TASK_RX_OFF     4
+#define TASK_SETF       5
+#define TASK_RESETF     6
+#define TASK_NOOP       0
+
 class c_IO_Manager
 {
     public:
@@ -28,6 +36,18 @@ class c_IO_Manager
         static void SetInstance(c_IO_Manager* inst);
         static c_IO_Manager* GetInstance();
 
+        // Fréquence (Hz) pour tous les canaux
+        void setFrequency(uint32_t freq);
+        uint32_t getFrequency() const;
+
+        // Contrôle des sorties
+        void enableTX();     // CLK0
+        void disableTX();
+        void enableRX();     // CLK1 & CLK2 en quadrature
+        void disableRX();
+
+        uint8_t USB_CONSOLE_TASK;
+
     private:
         static c_IO_Manager* s_instance;
 
@@ -43,5 +63,6 @@ class c_IO_Manager
         uint8_t USR_SW_5_Counter;
         
         uint32_t actual_freq;
+        uint32_t currentFreq;
 };
 #endif

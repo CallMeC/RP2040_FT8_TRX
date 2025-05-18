@@ -213,3 +213,9 @@ bool SI5351::setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual
 
     return true;
 }
+
+void SI5351::setPhaseOffset(uint8_t clk, uint8_t offset)
+{
+    if (clk > 2 || offset > 127) return;
+    writeRegister(165 + clk, offset);
+}

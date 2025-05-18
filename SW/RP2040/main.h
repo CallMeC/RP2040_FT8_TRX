@@ -5,5 +5,7 @@
 #include "pico/stdlib.h"
 
 #include "IO_Manager.h"
+#include "usb_console.h"
+
 
 #endif

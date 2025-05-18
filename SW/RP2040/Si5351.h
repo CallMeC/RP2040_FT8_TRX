@@ -18,6 +18,7 @@ public:
     bool ping();
     bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz);
     bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq = nullptr);
+    void setPhaseOffset(uint8_t clk, uint8_t offset);
 
 private:
     c_I2C I2C;

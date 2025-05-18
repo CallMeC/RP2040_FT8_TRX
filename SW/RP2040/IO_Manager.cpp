@@ -46,7 +46,7 @@ c_IO_Manager* c_IO_Manager::GetInstance() {
 
 void c_IO_Manager::GPIO_Init()
 {
-    timer_counter = 0;
+    timer_counter = 0; USB_CONSOLE_TASK = 0;
     USR_SW_3_Counter = 0; USR_SW_4_Counter = 0; USR_SW_5_Counter = 0;
 
     gpio_init(OUTPUT_LED);
@@ -84,6 +84,29 @@ void c_IO_Manager::GPIO_Mainloop()
             break;
 
         case UPDATE_CLK:
+            switch(USB_CONSOLE_TASK)
+            {
+                case TASK_TX_ON:
+                    enableTX();
+
+                case TASK_TX_OFF:
+                    disableTX();
+                    
+                case TASK_RX_ON:
+                    enableRX();
+
+                case TASK_RX_OFF:
+                    disableRX();
+
+                case TASK_SETF:
+                    setFrequency(currentFreq);
+
+                case TASK_RESETF:
+                    setFrequency(1000000);
+
+                default:
+                    ;
+            }
             IO_OPERATION = DEFAULT_NOP;
             break;
         
@@ -128,7 +151,7 @@ bool c_IO_Manager::checkVCO()
 {
     if (si5351.ping())
     {
-        printf("SI5351 Detected\n");
+        //printf("SI5351 Detected\n");
         //gpio_put(ANTENNA_RELAY, true);
         //si5351.setFrequencyInteger(0, 14000000); // CLK0 à ~14.06 MHz, carré 50%
         //gpio_put(ANTENNA_RELAY, false);
@@ -144,20 +167,29 @@ bool c_IO_Manager::checkVCO()
 void c_IO_Manager::USR_SW_3_CallBack()
 {
     printf("USR SW 3\n");
-    
+    uint32_t actual;
+
     if (USR_SW_3_Counter == 0)
     {
-        si5351.setFrequencyInteger(0, 1400, &actual_freq); // CLK0 à ~1.406 kHz, carré 50%
+        uint32_t freq = 7031250; // ~7.03 MHz (PLL = 900 MHz, div = 128)
+
+        si5351.setFrequencyInteger(1, freq, &actual);
+        si5351.setFrequencyInteger(2, freq, &actual);
+
+        // Phase en quadrature : 90° → 1/4 période → offset = div / 4
+        si5351.setPhaseOffset(2, 32); // CLK2 en quadrature par rapport à CLK1
+
+        printf("CLK1 & CLK2 @ %lu Hz, quadrature OK\n", actual);
         USR_SW_3_Counter = 1;
     }
     else
     {
-        si5351.disableOutput(0);
+        si5351.disableOutput(1);
+        si5351.disableOutput(2);
         actual_freq = 0;
         USR_SW_3_Counter = 0;
+        printf("CLK1 & CLK2 @ 0 Hz\n", actual);
     }
-
-    printf("CLK0 Real frequency = %lu Hz\n", actual_freq);
 }
 
 void c_IO_Manager::USR_SW_4_CallBack()
@@ -167,8 +199,19 @@ void c_IO_Manager::USR_SW_4_CallBack()
     uint32_t actual_freq;
     if (USR_SW_4_Counter == 0)
     {
-        si5351.setFrequencyInteger(0, 14000, &actual_freq);
+        si5351.setFrequencyInteger(0, 1400, &actual_freq); // CLK0 à ~1.406 kHz, carré 50%
         USR_SW_4_Counter = 1;
+    }
+    else if (USR_SW_4_Counter == 1)
+    {
+        si5351.setFrequencyInteger(0, 14000, &actual_freq);
+        USR_SW_4_Counter = 2;
+        
+    }
+    else if (USR_SW_4_Counter == 2)
+    {
+        si5351.setFrequencyInteger(0, 140000, &actual_freq); // CLK0 à ~140.6 kHz, carré 50%
+        USR_SW_4_Counter = 3;
     }
     else
     {
@@ -187,7 +230,7 @@ void c_IO_Manager::USR_SW_5_CallBack()
     uint32_t actual_freq;
     if (USR_SW_5_Counter == 0)
     {
-        si5351.setFrequencyInteger(0, 140000, &actual_freq); // CLK0 à ~140.6 kHz, carré 50%
+        
         USR_SW_5_Counter = 1;
     }
     else
@@ -198,4 +241,41 @@ void c_IO_Manager::USR_SW_5_CallBack()
     }
 
     printf("CLK0 Real frequency = %lu Hz\n", actual_freq);
+}
+
+void c_IO_Manager::setFrequency(uint32_t freq)
+{
+    currentFreq = freq;
+    // Ne change pas les sorties directement ici
+}
+
+uint32_t c_IO_Manager::getFrequency() const
+{
+    return currentFreq;
+}
+
+void c_IO_Manager::enableTX()
+{
+    si5351.setFrequencyInteger(0, currentFreq, nullptr);
+}
+
+void c_IO_Manager::disableTX()
+{
+    si5351.disableOutput(0);
+}
+
+void c_IO_Manager::enableRX()
+{
+    si5351.setFrequencyInteger(1, currentFreq, nullptr);
+    si5351.setFrequencyInteger(2, currentFreq, nullptr);
+
+    // quadrature : 90° de déphasage
+    uint32_t phase = (900000000 / currentFreq) / 4;
+    si5351.setPhaseOffset(2, phase);
+}
+
+void c_IO_Manager::disableRX()
+{
+    si5351.disableOutput(1);
+    si5351.disableOutput(2);
 }
