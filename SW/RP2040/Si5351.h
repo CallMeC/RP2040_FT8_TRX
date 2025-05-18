@@ -17,7 +17,7 @@ public:
     bool setFrequency(uint8_t clk, uint32_t freq_hz);
     bool ping();
     bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz);
-
+    bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq = nullptr);
 
 private:
     c_I2C I2C;
@@ -29,6 +29,7 @@ private:
     bool readRegister(uint8_t reg, uint8_t& value);
 
     void configurePLL();
+    void configurePLL(uint64_t pll_freq);
     void configureMultisynth(uint8_t clk, uint32_t freq_hz);
 };
 

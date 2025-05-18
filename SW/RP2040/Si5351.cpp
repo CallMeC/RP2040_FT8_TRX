@@ -80,6 +80,29 @@ void SI5351::configurePLL()
     writeRegisters(26, pll_regs, 8); // PLLA = base 0x26
 }
 
+void SI5351::configurePLL(uint64_t pll_freq) {
+    // PLL = XTAL * (a + b/c)
+    // On utilise un multiple entier => b = 0, c = 1
+    const uint32_t xtal = 25000000; // 25 MHz typique
+    uint32_t mult = pll_freq / xtal;
+    uint32_t P1 = 128 * mult - 512;
+    uint32_t P2 = 0;
+    uint32_t P3 = 1;
+
+    uint8_t pll_regs[8];
+    pll_regs[0] = (P3 >> 8) & 0xFF;
+    pll_regs[1] = P3 & 0xFF;
+    pll_regs[2] = (P1 >> 16) & 0x03;
+    pll_regs[3] = (P1 >> 8) & 0xFF;
+    pll_regs[4] = P1 & 0xFF;
+    pll_regs[5] = ((P3 >> 12) & 0xF0) | ((P2 >> 16) & 0x0F);
+    pll_regs[6] = (P2 >> 8) & 0xFF;
+    pll_regs[7] = P2 & 0xFF;
+
+    writeRegisters(26, pll_regs, 8); // PLLA = Reg 26-33
+}
+
+
 void SI5351::configureMultisynth(uint8_t clk, uint32_t freq_hz)
 {
     // Utilise PLLA = 900 MHz, simplifié : MSx = PLL / Freq
@@ -142,6 +165,50 @@ bool SI5351::setFrequencyInteger(uint8_t clk, uint32_t freq_hz)
 
     writeRegisters(42 + 8 * clk, ms_regs, 8);       // Multisynth
     writeRegister(16 + clk, 0x4F);                  // Source = PLLA, 8 mA
+    enableOutput(clk);
+
+    return true;
+}
+
+bool SI5351::setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq) {
+    // Etape 1: Choisir un diviseur raisonnable au départ
+    uint32_t div = 64; // point de départ correct
+    uint64_t pll_freq = (uint64_t)freq_hz * div;
+
+    // Etape 2: S'assurer que le PLL reste dans les limites
+    if (pll_freq < 600000000ULL) pll_freq = 600000000ULL;
+    if (pll_freq > 900000000ULL) pll_freq = 900000000ULL;
+
+    // Etape 3: Recalculer le diviseur avec le PLL ajusté
+    div = (uint32_t)((pll_freq + freq_hz / 2) / freq_hz); // arrondi
+    if (div < 8) div = 8;
+    if (div > 900) div = 900;
+
+    pll_freq = (uint64_t)freq_hz * div;
+
+    uint32_t freq_out = pll_freq / div;
+    if (actual_freq) *actual_freq = freq_out;
+
+    // Etape 4: Configurer la PLL avec cette fréquence
+    configurePLL(pll_freq); // à adapter (voir plus bas)
+
+    // Etape 5: Préparer les registres multisynth (diviseur entier → P2 = 0, P3 = 1)
+    uint32_t P1 = 128 * div - 512;
+    uint32_t P2 = 0;
+    uint32_t P3 = 1;
+
+    uint8_t ms_regs[8];
+    ms_regs[0] = (P3 >> 8) & 0xFF;
+    ms_regs[1] = P3 & 0xFF;
+    ms_regs[2] = (P1 >> 16) & 0x03;
+    ms_regs[3] = (P1 >> 8) & 0xFF;
+    ms_regs[4] = P1 & 0xFF;
+    ms_regs[5] = ((P3 >> 12) & 0xF0) | ((P2 >> 16) & 0x0F);
+    ms_regs[6] = (P2 >> 8) & 0xFF;
+    ms_regs[7] = P2 & 0xFF;
+
+    writeRegisters(42 + 8 * clk, ms_regs, 8);
+    writeRegister(16 + clk, 0x4F); // PLLA, 8 mA
     enableOutput(clk);
 
     return true;

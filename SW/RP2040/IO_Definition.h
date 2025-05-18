@@ -11,9 +11,9 @@
 #define OUTPUT_LED              6
 #define PIN_7                   7
 #define ANTENNA_RELAY           8
-#define USER_SW_1               9
-#define USER_SW_2               10
-#define USER_SW_3               11
+#define USER_SW_5               9
+#define USER_SW_3               10
+#define USER_SW_4               11
 #define I2C_SDA                 12
 #define I2C_SCL                 13
 #define PIN_14                  14
