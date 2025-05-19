@@ -104,6 +104,12 @@ void c_IO_Manager::GPIO_Mainloop()
                 case TASK_RESETF:
                     setFrequency(1000000);
 
+                case TASK_STATUS:
+                    si5351.printStatus();
+
+                case TASK_ALL:
+                    si5351.enableAllOutputs();
+
                 default:
                     ;
             }
@@ -212,6 +218,16 @@ void c_IO_Manager::USR_SW_4_CallBack()
     {
         si5351.setFrequencyInteger(0, 140000, &actual_freq); // CLK0 à ~140.6 kHz, carré 50%
         USR_SW_4_Counter = 3;
+    }
+    else if (USR_SW_4_Counter == 3)
+    {
+        si5351.setFrequencyInteger(0, 1400000, &actual_freq); // CLK0 à ~1.406 MHz, carré 50%
+        USR_SW_4_Counter = 4;
+    }
+    else if (USR_SW_4_Counter == 4)
+    {
+        si5351.setFrequencyInteger(0, 14000000, &actual_freq); // CLK0 à ~14.06 MHz, carré 50%
+        USR_SW_4_Counter = 5;
     }
     else
     {

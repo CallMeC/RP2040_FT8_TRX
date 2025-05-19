@@ -13,12 +13,14 @@ public:
 
     bool init();
     bool enableOutput(uint8_t clk);
+    bool enableAllOutputs();
     bool disableOutput(uint8_t clk);
     bool setFrequency(uint8_t clk, uint32_t freq_hz);
     bool ping();
     bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz);
     bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq = nullptr);
     void setPhaseOffset(uint8_t clk, uint8_t offset);
+    void printStatus();
 
 private:
     c_I2C I2C;

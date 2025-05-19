@@ -13,9 +13,18 @@ SI5351::SI5351(i2c_inst_t* i2c, uint8_t addr) : _i2c(i2c), _addr(addr)
 
 bool SI5351::init()
 {
-    // Mettre les sorties en veille
-    return writeRegister(3, 0xFF); // Désactive CLK0 à CLK7
+    // Désactiver toutes les sorties
+    if (!writeRegister(3, 0xFF)) return false;
+
+    // Configurer la capacité de charge à 10 pF (bits [1:0] = 0b10)
+    uint8_t val;
+    if (!readRegister(183, val)) return false;
+    val = (val & 0b11111100) | 0b10; // Conserve les autres bits, force 10pF
+    if (!writeRegister(183, val)) return false;
+
+    return true;
 }
+
 
 bool SI5351::writeRegister(uint8_t reg, uint8_t value)
 {
@@ -38,6 +47,12 @@ bool SI5351::enableOutput(uint8_t clk)
     if (!readRegister(3, val)) return false;
     val &= ~(1 << clk); // Active la sortie clk
     return writeRegister(3, val);
+}
+
+bool SI5351::enableAllOutputs()
+{
+    // Registre 3 : un bit à 1 désactive une sortie, donc 0x00 les active toutes
+    return writeRegister(3, 0x00);
 }
 
 bool SI5351::disableOutput(uint8_t clk)
@@ -170,7 +185,8 @@ bool SI5351::setFrequencyInteger(uint8_t clk, uint32_t freq_hz)
     return true;
 }
 
-bool SI5351::setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq) {
+bool SI5351::setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq)
+{
     // Etape 1: Choisir un diviseur raisonnable au départ
     uint32_t div = 64; // point de départ correct
     uint64_t pll_freq = (uint64_t)freq_hz * div;
@@ -218,4 +234,52 @@ void SI5351::setPhaseOffset(uint8_t clk, uint8_t offset)
 {
     if (clk > 2 || offset > 127) return;
     writeRegister(165 + clk, offset);
+}
+
+void SI5351::printStatus()
+{
+    uint8_t status = 0;
+    if (!readRegister(0, status))
+    {
+        printf("Failed to read status register.\n");
+        return;
+    }
+
+    printf("Status Register (0x00): 0x%02X\n", status);
+
+    if (status & (1 << 7))
+    {
+        printf("SYS_INIT: PLLs initializing or reset.\n");
+    }
+    else
+    {
+        printf("SYS_INIT: PLLs initialized.\n");
+    }
+
+    if (status & (1 << 6))
+    {
+        printf("LOL_A: PLLA lost lock!\n");
+    }
+    else
+    {
+        printf("LOL_A: PLLA locked.\n");
+    }
+
+    if (status & (1 << 5))
+    {
+        printf("LOL_B: PLLB lost lock!\n");
+    }
+    else
+    {
+        printf("LOL_B: PLLB locked.\n");
+    }
+
+    if (status & (1 << 4))
+    {
+        printf("LOS: XTAL not detected (loss of signal)!\n");
+    }
+    else
+    {
+        printf("LOS: Crystal oscillator detected.\n");
+    }
 }

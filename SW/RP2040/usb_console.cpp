@@ -71,6 +71,8 @@ uint8_t USBConsole::poll()
                     printf("- R [ON|OFF] : Enables / Disables CLK1 & CLK2 generation\n");
                     printf("- SETF [freq. (Hz)] : Sets frequency\n");
                     printf("- RESETF : Sets default frequency (%u Hz)\n", DEFAULT_FREQ);
+                    printf("- ALL : Enable ALL CLK outputs\n");
+                    printf("- STATUS : Get SI5351 Status Register");
                     idx = 0;
                     return TASK_NOOP;
                 }
@@ -79,6 +81,16 @@ uint8_t USBConsole::poll()
                     printf("Frequency set on : %u Hz\n", DEFAULT_FREQ);
                     idx = 0;
                     return TASK_RESETF;
+                }
+                else if (strcmp(buf, "STATUS") == 0)
+                {
+                    idx = 0;
+                    return TASK_STATUS;
+                }
+                else if (strcmp(buf, "ALL") == 0)
+                {
+                    idx = 0;
+                    return TASK_STATUS;
                 }
                 else if (strncmp(buf, "SETF ", 5) == 0)
                 {
@@ -110,12 +122,11 @@ uint8_t USBConsole::poll()
         else if (idx < (int)(sizeof(buf)) - 1)
         {
         // Ajoute uniquement si lettre ou espace
-        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == ' ')
-        {
-            buf[idx++] = (char)c;
+            if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == ' ')
+            {
+                buf[idx++] = (char)c;
+            }
         }
-}
-
     }    
 }
 

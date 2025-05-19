@@ -15,6 +15,8 @@
 #define TASK_RX_OFF     4
 #define TASK_SETF       5
 #define TASK_RESETF     6
+#define TASK_STATUS     7
+#define TASK_ALL        8
 #define TASK_NOOP       0
 
 class USBConsole
