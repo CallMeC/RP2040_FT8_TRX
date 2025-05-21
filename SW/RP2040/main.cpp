@@ -17,10 +17,9 @@ int main()
     // Loop forever
     while (true)
     {
-        IOManager.IO_OPERATION = GPIO_GET;
+        IOManager.IO_OPERATION = UPDATE_CLK;
         IOManager.USB_CONSOLE_TASK = console.poll();
-        IOManager.setFrequency(console.getFrequency());
+        //IOManager.setFrequency(0, console.getFrequency());
         sleep_ms(10);
     }
 }
-

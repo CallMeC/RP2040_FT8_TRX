@@ -7,6 +7,7 @@
 
 #include "Si5351.h"
 
+
 #define DEFAULT_NOP     0
 #define CHECK_RTC       5
 #define UPDATE_CLK      6
@@ -41,6 +42,8 @@ class c_IO_Manager
         // Fréquence (Hz) pour tous les canaux
         void setFrequency(uint32_t freq);
         uint32_t getFrequency() const;
+        void set_frequency(uint8_t output, uint32_t freq_hz);
+        void set_phase_offset(uint8_t output, uint8_t offset);
 
         // Contrôle des sorties
         void enableTX();     // CLK0
@@ -50,10 +53,16 @@ class c_IO_Manager
 
         uint8_t USB_CONSOLE_TASK;
 
+        void enableVFO(int vfoIndex, bool enable);
+        void setFrequency(int vfoIndex, uint32_t frequency);
+        void setPhase(int vfoIndex, uint8_t phase);
+        vfo_t getVFO(int vfoIndex);
+
     private:
         static c_IO_Manager* s_instance;
 
-        SI5351 si5351;
+        //SI5351 si5351;
+        vfo_t vfo[2];  // VFO0 et VFO1
 
         void GPIO_Mainloop();
         void GPIO_Bootfinished();

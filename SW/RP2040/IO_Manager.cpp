@@ -62,7 +62,7 @@ void c_IO_Manager::GPIO_Init()
     gpio_set_irq_enabled_with_callback(USER_SW_4, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
     gpio_set_irq_enabled_with_callback(USER_SW_5, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
     
-    si5351.init();
+    si_init();  // Initialise les deux VFO
 
     GPIO_Bootfinished();
 
@@ -99,16 +99,16 @@ void c_IO_Manager::GPIO_Mainloop()
                     disableRX();
 
                 case TASK_SETF:
-                    setFrequency(currentFreq);
+                    setFrequency(0, currentFreq);
 
                 case TASK_RESETF:
-                    setFrequency(1000000);
+                    setFrequency(0, 1000000);
 
                 case TASK_STATUS:
-                    si5351.printStatus();
+                    //si5351.printStatus();
 
                 case TASK_ALL:
-                    si5351.enableAllOutputs();
+                    //si5351.enableAllOutputs();
 
                 default:
                     ;
@@ -155,7 +155,7 @@ void c_IO_Manager::GPIO_LED_TOGGLE()
 
 bool c_IO_Manager::checkVCO()
 {
-    if (si5351.ping())
+    /*if (si5351.ping())
     {
         //printf("SI5351 Detected\n");
         //gpio_put(ANTENNA_RELAY, true);
@@ -167,7 +167,8 @@ bool c_IO_Manager::checkVCO()
     {
         printf("Error : SI5351 Timeout\n");
         return false;
-    }
+    }*/
+    return true;
 }
 
 void c_IO_Manager::USR_SW_3_CallBack()
@@ -177,24 +178,17 @@ void c_IO_Manager::USR_SW_3_CallBack()
 
     if (USR_SW_3_Counter == 0)
     {
-        uint32_t freq = 7031250; // ~7.03 MHz (PLL = 900 MHz, div = 128)
+        setFrequency(1, 14000);
 
-        si5351.setFrequencyInteger(1, freq, &actual);
-        si5351.setFrequencyInteger(2, freq, &actual);
-
-        // Phase en quadrature : 90° → 1/4 période → offset = div / 4
-        si5351.setPhaseOffset(2, 32); // CLK2 en quadrature par rapport à CLK1
-
-        printf("CLK1 & CLK2 @ %lu Hz, quadrature OK\n", actual);
+        printf("Set 14kHz\n");
         USR_SW_3_Counter = 1;
     }
     else
     {
-        si5351.disableOutput(1);
-        si5351.disableOutput(2);
-        actual_freq = 0;
-        USR_SW_3_Counter = 0;
-        printf("CLK1 & CLK2 @ 0 Hz\n", actual);
+        //si5351.disableOutput(1);
+        //si5351.disableOutput(2);
+        setFrequency(1, 1000);
+        printf("Set 1kHz\n");
     }
 }
 
@@ -205,38 +199,50 @@ void c_IO_Manager::USR_SW_4_CallBack()
     uint32_t actual_freq;
     if (USR_SW_4_Counter == 0)
     {
-        si5351.setFrequencyInteger(0, 1400, &actual_freq); // CLK0 à ~1.406 kHz, carré 50%
+        //si5351.setFrequencyInteger(0, 1400, &actual_freq); // CLK0 à ~1.406 kHz, carré 50%
+        setFrequency(0, 1000);
+        printf("Set 1kHz\n");
         USR_SW_4_Counter = 1;
     }
     else if (USR_SW_4_Counter == 1)
     {
-        si5351.setFrequencyInteger(0, 14000, &actual_freq);
+        setFrequency(0, 10000);
+        printf("Set 10kHz\n");
+        //si5351.setFrequencyInteger(0, 14000, &actual_freq);
         USR_SW_4_Counter = 2;
         
     }
     else if (USR_SW_4_Counter == 2)
     {
-        si5351.setFrequencyInteger(0, 140000, &actual_freq); // CLK0 à ~140.6 kHz, carré 50%
+        setFrequency(0, 100000);
+        printf("Set 100kHz\n");
         USR_SW_4_Counter = 3;
     }
     else if (USR_SW_4_Counter == 3)
     {
-        si5351.setFrequencyInteger(0, 1400000, &actual_freq); // CLK0 à ~1.406 MHz, carré 50%
+        setFrequency(0, 1000000);
+        printf("Set 1MHz\n");
         USR_SW_4_Counter = 4;
     }
     else if (USR_SW_4_Counter == 4)
     {
-        si5351.setFrequencyInteger(0, 14000000, &actual_freq); // CLK0 à ~14.06 MHz, carré 50%
+        setFrequency(0, 10000000);
+        printf("Set 10MHz\n");
         USR_SW_4_Counter = 5;
+    }
+    else if (USR_SW_4_Counter == 5)
+    {
+        setFrequency(0, 100000000);
+        printf("Set 100MHz\n");
+        USR_SW_4_Counter = 6;
     }
     else
     {
-        si5351.disableOutput(0);
+        //si5351.disableOutput(0);
+        si_enable(0, 0);
         actual_freq = 0;
         USR_SW_4_Counter = 0;
     }
-        
-    printf("CLK0 Real frequency = %lu Hz\n", actual_freq);
 }
 
 void c_IO_Manager::USR_SW_5_CallBack()
@@ -251,18 +257,12 @@ void c_IO_Manager::USR_SW_5_CallBack()
     }
     else
     {
-        si5351.disableOutput(0);
+        //si5351.disableOutput(0);
         actual_freq = 0;
         USR_SW_5_Counter = 0;
     }
 
     printf("CLK0 Real frequency = %lu Hz\n", actual_freq);
-}
-
-void c_IO_Manager::setFrequency(uint32_t freq)
-{
-    currentFreq = freq;
-    // Ne change pas les sorties directement ici
 }
 
 uint32_t c_IO_Manager::getFrequency() const
@@ -272,26 +272,50 @@ uint32_t c_IO_Manager::getFrequency() const
 
 void c_IO_Manager::enableTX()
 {
-    si5351.setFrequencyInteger(0, currentFreq, nullptr);
+    //si5351.setFrequencyInteger(0, currentFreq, nullptr);
 }
 
 void c_IO_Manager::disableTX()
 {
-    si5351.disableOutput(0);
+    //si5351.disableOutput(0);
 }
 
 void c_IO_Manager::enableRX()
 {
-    si5351.setFrequencyInteger(1, currentFreq, nullptr);
-    si5351.setFrequencyInteger(2, currentFreq, nullptr);
+    //si5351.setFrequencyInteger(1, currentFreq, nullptr);
+    //si5351.setFrequencyInteger(2, currentFreq, nullptr);
 
     // quadrature : 90° de déphasage
-    uint32_t phase = (900000000 / currentFreq) / 4;
-    si5351.setPhaseOffset(2, phase);
+    //uint32_t phase = (900000000 / currentFreq) / 4;
+    //si5351.setPhaseOffset(2, phase);
 }
 
 void c_IO_Manager::disableRX()
 {
-    si5351.disableOutput(1);
-    si5351.disableOutput(2);
+    //si5351.disableOutput(1);
+    //si5351.disableOutput(2);
+}
+
+void c_IO_Manager::enableVFO(int vfoIndex, bool enable)
+{
+    si_enable(vfoIndex, enable);
+}
+
+void c_IO_Manager::setFrequency(int vfoIndex, uint32_t frequency)
+{
+    si_evaluate(vfoIndex, frequency);
+}
+
+void c_IO_Manager::setPhase(int vfoIndex, uint8_t phase)
+{
+    si_setphase(vfoIndex, phase);
+}
+
+vfo_t c_IO_Manager::getVFO(int vfoIndex)
+{
+    vfo_t vfo;
+    if (si_getvfo(vfoIndex, &vfo)) {
+        return vfo;
+    }
+    return {}; // Valeurs par défaut si échec
 }

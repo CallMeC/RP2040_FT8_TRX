@@ -1,39 +1,61 @@
-#ifndef SI5351_H
-#define SI5351_H
+#ifndef _SI5351_H
+#define _SI5351_H
+/*
+ * si5351.h
+ *
+ * Created: March 2021
+ * Author: Arjan
+ *
+ * Driver for Si5351A chip.
+ * VFO 0 is a quadrature clock on outputs 0 and 1, 
+ * VFO 1 is a regular clock on output 2.
+ *
+ * VFO 0 allows to set frequency and phase offsets of 0-90-180-270 deg (delay clk1 wrt clk0)
+ * VFO 1 just allows to set frequency, phase is ignored
+ * 
+ * Use the 'set' functions to change VFO settings.
+ * Make regular calls to the 'evaluate' function to commit the changes (if any).
+ * To get smooth tuning, a suggested interval is 0.1sec, e.g. from a timer loop
+ *
+ * See si5351.c for more information 
+ *
+ */ 
 
-#include "I2C.h"
-#include <stdint.h>
+ // I2C Parameters
+#define I2C_VFO                 0x60
+#define I2C_LINGER_US           200
+#define I2C_RTC_TIMEOUT         10000
+#define I2C_SDA                 12
+#define I2C_SCL                 13
+#define I2C_INSTANCE			i2c0
 
-#define SI5151_ADDR 0x60
+//Default Frequencies
+#define DEFAULT_F_CLK0			3560000
+#define DEFAULT_F_CLK1			3560000
+#define DEFAULT_F_CLK2			3560000
 
-class SI5351
+
+// Phase definitions for si_setphase()
+#define PH000	0
+#define PH090	1
+#define PH180	2
+#define PH270	3
+
+typedef struct
 {
-public:
-    SI5351(i2c_inst_t* i2c = I2C_PORT, uint8_t addr = SI5151_ADDR);
+	uint32_t freq;		// type can hold up to 4GHz
+	uint8_t  phase;		// in quarter waves (0, 1, 2, 3)
+	uint8_t  ri;		// Ri (1 .. 128), but should be 1 for VFO 0
+	uint8_t  msi;		// MSi parameter a (4, 6, 8 .. 126)
+	double   msn;		// MSN (24.0 .. 35.9999)
+} vfo_t;
 
-    bool init();
-    bool enableOutput(uint8_t clk);
-    bool enableAllOutputs();
-    bool disableOutput(uint8_t clk);
-    bool setFrequency(uint8_t clk, uint32_t freq_hz);
-    bool ping();
-    bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz);
-    bool setFrequencyInteger(uint8_t clk, uint32_t freq_hz, uint32_t* actual_freq = nullptr);
-    void setPhaseOffset(uint8_t clk, uint8_t offset);
-    void printStatus();
 
-private:
-    c_I2C I2C;
-    i2c_inst_t* _i2c;
-    uint8_t _addr;
+int  si_getreg(uint8_t *buffer, uint8_t reg, uint8_t len);
+int  si_getvfo(int i, vfo_t *v);
+void si_setphase(int i, uint8_t p);
+void si_enable(int i, bool en);
+void si_init(void);
+int  si_evaluate(int i, uint32_t freq);
 
-    bool writeRegister(uint8_t reg, uint8_t value);
-    bool writeRegisters(uint8_t reg, uint8_t* data, uint8_t len);
-    bool readRegister(uint8_t reg, uint8_t& value);
-
-    void configurePLL();
-    void configurePLL(uint64_t pll_freq);
-    void configureMultisynth(uint8_t clk, uint32_t freq_hz);
-};
-
-#endif // SI5351_H
+#endif /* _SI5351_H */
