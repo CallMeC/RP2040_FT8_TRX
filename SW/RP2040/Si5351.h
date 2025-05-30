@@ -1,61 +1,66 @@
-#ifndef _SI5351_H
-#define _SI5351_H
-/*
- * si5351.h
- *
- * Created: March 2021
- * Author: Arjan
- *
- * Driver for Si5351A chip.
- * VFO 0 is a quadrature clock on outputs 0 and 1, 
- * VFO 1 is a regular clock on output 2.
- *
- * VFO 0 allows to set frequency and phase offsets of 0-90-180-270 deg (delay clk1 wrt clk0)
- * VFO 1 just allows to set frequency, phase is ignored
- * 
- * Use the 'set' functions to change VFO settings.
- * Make regular calls to the 'evaluate' function to commit the changes (if any).
- * To get smooth tuning, a suggested interval is 0.1sec, e.g. from a timer loop
- *
- * See si5351.c for more information 
- *
- */ 
+#ifndef SI5351_H
+#define SI5351_H
 
- // I2C Parameters
-#define I2C_VFO                 0x60
-#define I2C_LINGER_US           200
-#define I2C_RTC_TIMEOUT         10000
-#define I2C_SDA                 12
-#define I2C_SCL                 13
-#define I2C_INSTANCE			i2c0
+#include <stdint.h>
+#include "I2C.h"
 
-//Default Frequencies
-#define DEFAULT_F_CLK0			3560000
-#define DEFAULT_F_CLK1			3560000
-#define DEFAULT_F_CLK2			3560000
+#include <stdint.h>
+#include <math.h>
+#include <unistd.h>
+#include <stdio.h>
+#include "pico/stdlib.h"
+#include <string.h>
 
+// ----------- Configuration Constants -----------
+#define SI_ADDRESS      0x60
+#define SI_XTAL_FREQ    25000000UL
+#define SI_PLL_VCO_MIN  600000000UL
+#define SI_PLL_VCO_MAX  900000000UL
+#define SI_MS_DIV_MIN   8
+#define SI_MS_DIV_MAX   2048
+#define SI_PLL_C        1048575UL  // 2^20 - 1
 
-// Phase definitions for si_setphase()
-#define PH000	0
-#define PH090	1
-#define PH180	2
-#define PH270	3
+// ----------- Register Addresses -----------
+#define SI_CLK_ENABLE_REG  3
+#define SI_PLL_RESET_REG   177
+#define SI_MSNA_REG        26
+#define SI_CLK0_CTRL       16
+#define SI_CLK1_CTRL       17
+#define SI_CLK2_CTRL       18
+#define SI_CLK3_CTRL       19
+#define SI_CLK4_CTRL       20
+#define SI_CLK5_CTRL       21
+#define SI_CLK6_CTRL       22
+#define SI_CLK7_CTRL       23
 
-typedef struct
+// ----------- Public Functions -----------
+
+extern c_I2C I2C0;
+
+class c_Si5351
 {
-	uint32_t freq;		// type can hold up to 4GHz
-	uint8_t  phase;		// in quarter waves (0, 1, 2, 3)
-	uint8_t  ri;		// Ri (1 .. 128), but should be 1 for VFO 0
-	uint8_t  msi;		// MSi parameter a (4, 6, 8 .. 126)
-	double   msn;		// MSN (24.0 .. 35.9999)
-} vfo_t;
+    public:
+        void init(void);
+        void pool();
+        uint32_t frequency;
+
+        uint8_t TASK;
+
+    private:
+        void write_register(uint8_t reg, uint8_t value);
+        void write_registers(uint8_t start_reg, uint8_t *data, size_t len);
+        void read_register(uint8_t reg, uint8_t *value);
+        void calc_params(double ratio, uint32_t *P1, uint32_t *P2, uint32_t *P3);
+        void set_pll(uint8_t pll, double ratio);
+        void set_multisynth(uint8_t clk, double ratio, uint8_t Rdiv);
+        void set_phase_offset(uint8_t clk, uint8_t offset_steps);
+        void set_frequency_all(uint32_t freq_hz);
+        void reset_pll(uint8_t pll);
+        void set_output_enable(uint8_t clk, uint8_t enable);
+        bool check_connection();
+        void Alouette();
+
+};
 
 
-int  si_getreg(uint8_t *buffer, uint8_t reg, uint8_t len);
-int  si_getvfo(int i, vfo_t *v);
-void si_setphase(int i, uint8_t p);
-void si_enable(int i, bool en);
-void si_init(void);
-int  si_evaluate(int i, uint32_t freq);
-
-#endif /* _SI5351_H */
+#endif // SI5351_H
